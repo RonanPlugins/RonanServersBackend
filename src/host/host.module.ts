@@ -7,7 +7,7 @@ import { HostService } from './host.service';
 @Module({
   imports: [TypeOrmModule.forFeature([HostEntity])],
   providers: [HostService],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, HostService],
   controllers: [HostController],
 })
 export class HostModule {}

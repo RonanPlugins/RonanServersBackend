@@ -5,9 +5,12 @@ import { HostModule } from '../host/host.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { HostEntity } from '../host/host.entity/host.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([HostEntity]),
     HostModule,
     PassportModule,
     JwtModule.register({
