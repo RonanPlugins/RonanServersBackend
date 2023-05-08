@@ -4,14 +4,26 @@ import { AppService } from './app.service';
 import { HostModule } from './host/host.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServerModule } from './server/server.module';
+import { CategoryModule } from './category/category.module';
+import { RatingService } from './rating/rating.service';
+import { CommentModule } from './comment/comment.module';
+import { VoteController } from './vote/vote.controller';
 import * as dotenv from 'dotenv';
 import config from '../ormconfig';
 
 dotenv.config();
 
 @Module({
-  imports: [TypeOrmModule.forRoot(config), HostModule, AuthModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    TypeOrmModule.forRoot(config),
+    HostModule,
+    AuthModule,
+    ServerModule,
+    CategoryModule,
+    CommentModule,
+  ],
+  controllers: [AppController, VoteController],
+  providers: [AppService, RatingService],
 })
 export class AppModule {}

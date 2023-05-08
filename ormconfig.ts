@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const config: TypeOrmModuleOptions = {
-  type: 'mysql',
+  type: 'mariadb',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT, 10),
   username: process.env.DB_USERNAME,
