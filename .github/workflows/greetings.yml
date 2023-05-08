@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "👋 Thank you for helping to make RonanServers a better platform. Your issue has been passed on to the development team and you should expect a response soon."
+        pr-message: "Thank you for contributing to RonanServers. Your support helps us build a better platform for everyone. A massive thank you from us 🤲"
