@@ -2,13 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('My API')
-    .setDescription('API for my application')
-    .setVersion('1.0')
+    .setTitle('RonanServers API')
+    .setDescription('API for RonanServers')
+    .setVersion(process.env.npm_package_version)
     .addTag('server')
     .build();
 
@@ -17,6 +20,6 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
-  await app.listen(3000);
+  await app.listen(3012);
 }
 bootstrap();
