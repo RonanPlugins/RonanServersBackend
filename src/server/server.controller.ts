@@ -15,8 +15,10 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthService } from '../auth/auth.service';
 import { HostService } from '../host/host.service';
 import { ServerEntity } from './server.entity/server.entity';
+import { ApiBody, ApiDefaultResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('server')
+@ApiTags('server')
 export class ServerController {
   constructor(
     private serverService: ServerService,
@@ -25,6 +27,15 @@ export class ServerController {
   ) {}
   @UseGuards(JwtAuthGuard)
   @Post('create')
+  @ApiBody({ type: ServerEntity })
+  @ApiDefaultResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        host: { $ref: '#/components/schemas/ServerEntity' },
+      },
+    },
+  })
   async create(
     @Request() req,
     @Body('name') name: string,
@@ -52,27 +63,74 @@ export class ServerController {
   }
 
   @Get()
+  @ApiDefaultResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        servers: {
+          type: 'array',
+          items: { $ref: '#/components/schemas/ServerEntity' },
+        },
+      },
+    },
+  })
   async findAll(): Promise<ServerEntity[]> {
     return await this.serverService.findAll();
   }
-
+  @ApiDefaultResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        servers: {
+          type: 'array',
+          items: { $ref: '#/components/schemas/ServerEntity' },
+        },
+      },
+    },
+  })
   @Get('host/:hostId')
   async findAllByHostId(@Param('hostId') hostId: number) {
     return await this.serverService.findAllByHostId(hostId);
   }
-
+  @ApiDefaultResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        servers: {
+          type: 'array',
+          items: { $ref: '#/components/schemas/ServerEntity' },
+        },
+      },
+    },
+  })
   @Get('category/:categoryId')
   async findAllByCategoryId(@Param('categoryId') categoryId: number) {
     return await this.serverService.findAllByCategoryId(categoryId);
   }
 
   @Get(':id')
+  @ApiDefaultResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        host: { $ref: '#/components/schemas/ServerEntity' },
+      },
+    },
+  })
   async findOneById(@Param('id') id: number) {
     return await this.serverService.findOneById(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @ApiDefaultResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        host: { $ref: '#/components/schemas/ServerEntity' },
+      },
+    },
+  })
   async updateServer(
     @Request() req,
     @Param('id') id: number,
