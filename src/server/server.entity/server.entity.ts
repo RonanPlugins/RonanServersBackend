@@ -1,9 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
 import { HostEntity } from '../../host/host.entity/host.entity';
 import { CategoryEntity } from '../../category/category.entity/category.entity';
 import { CommentEntity } from '../../comment/comment.entity/comment.entity';
 import { VoteEntity } from '../../vote/vote.entity/vote.entity';
 import { RatingEntity } from '../../rating/rating.entity/rating.entity';
+
 @Entity()
 export class ServerEntity {
   @PrimaryGeneratedColumn()
@@ -26,12 +34,6 @@ export class ServerEntity {
 
   @Column()
   gameMode: string;
-
-  @Column()
-  playerCapacity: number;
-
-  @Column()
-  onlinePlayers: number;
 
   @Column({ type: 'json', nullable: true })
   rules: string[];

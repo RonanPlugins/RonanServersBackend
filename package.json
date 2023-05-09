@@ -1,6 +1,6 @@
 {
   "name": "ronan-servers-nest-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "author": "",
   "private": true,
@@ -31,7 +31,9 @@
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
+    "minecraft-server-util": "^5.4.2",
     "mysql": "^2.18.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
