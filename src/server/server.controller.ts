@@ -15,7 +15,12 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthService } from '../auth/auth.service';
 import { HostService } from '../host/host.service';
 import { ServerEntity } from './server.entity/server.entity';
-import { ApiBody, ApiDefaultResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCookieAuth,
+  ApiDefaultResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('server')
 @ApiTags('server')
@@ -28,6 +33,7 @@ export class ServerController {
   @UseGuards(JwtAuthGuard)
   @Post('create')
   @ApiBody({ type: ServerEntity })
+  @ApiCookieAuth('JWT Token')
   @ApiDefaultResponse({
     schema: {
       type: 'object',
@@ -122,6 +128,7 @@ export class ServerController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth('JWT Token')
   @Patch(':id')
   @ApiDefaultResponse({
     schema: {
@@ -146,6 +153,7 @@ export class ServerController {
     return await this.serverService.updateServer(id, updateServerDto);
   }
   @UseGuards(JwtAuthGuard)
+  @ApiCookieAuth('JWT Token')
   @Delete(':id')
   async deleteServer(@Request() req, @Param('id') id: number) {
     const hostId = await this.authService.getHostIdFromToken(
