@@ -1,0 +1,51 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: production
+
+on:
+  push:
+    branches: [ "master" ]
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # strategy:
+    #   matrix:
+    #     node-version: [8.x, 10.x, 12.x]
+
+    # steps:
+    # - uses: actions/checkout@v3
+
+    # - name: Use Node.js ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+
+    # - name: npm install, build, and test
+    #   run: |
+    #     npm install
+    #     npm run build --if-present
+    #     npm test
+    #   env:
+    #     CI: true
+
+    - name: SSH Remote Commands
+      uses: appleboy/ssh-action@v0.1.8
+      with: 
+        host: ${{secrets.VPS_HOST}}
+        port: 22
+        username: ${{secrets.VPS_USERNAME}}
+        password: ${{secrets.VPS_PASSWORD}}
+        script: |
+          cd /var/www/RonanServers/backend
+          git reset --hard
+          git pull
+          npm install
+          npm run build
+          systemctl restart RonanServersApi.service
+        
+        
