@@ -10,7 +10,12 @@
 Api documentation is available at [ronanservers.com](https://api.ronanservers.com/api)
 
 [![Discord Online](https://img.shields.io/discord/182633513474850818.svg)](https://discord.gg/ronannetwork-plugin-help-182633513474850818)
-[![Build Status](https://img.shields.io/github/workflow/status/RonanPlugins/RonanServersBackend/CI)](https://github.com/RonanPlugins/RonanServersBackend/actions/workflows/greetings.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/RonanPlugins/RonanServersBackend/greetings.yml)](https://github.com/RonanPlugins/RonanServersBackend)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/RonanPlugins/RonanServersBackenD)](https://github.com/RonanPlugins/RonanServersBackend/blob/master/package.json)
+[![GitHub repo size](https://img.shields.io/github/repo-size/RonanPlugins/RonanServersBackend)](https://github.com/RonanPlugins/RonanServersBackend)
+[![Website](https://img.shields.io/website?down_message=offline&label=Api%20status&logo=RonanServers&up_color=0&up_message=online&url=https%3A%2F%2Fapi.ronanservers.com)](https://api.ronanservers.com)
+![GitHub issues](https://img.shields.io/github/issues/RonanPlugins/RonanServersBackend)
+
 
 ## Setup
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.  
