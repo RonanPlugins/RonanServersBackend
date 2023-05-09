@@ -15,12 +15,15 @@ import { HostService } from './host/host.service';
 import { ServerService } from './server/server.service';
 import { ServerController } from './server/server.controller';
 import { HostController } from './host/host.controller';
+import { PrometheusModule } from "@willsoto/nestjs-prometheus";
+
 
 dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(config),
+    PrometheusModule.register(),
     HostModule,
     AuthModule,
     ServerModule,
