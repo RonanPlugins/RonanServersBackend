@@ -13,11 +13,15 @@ export class AuthService {
   async validateHost(username: string, password: string): Promise<any> {
     const host = await this.hostService.findOneByUsername(username);
     if (host && (await bcrypt.compare(password, host.password))) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...result } = host;
+      const { ...result } = host;
       return result;
     }
     return null;
+  }
+
+  async getHostIdFromToken(token: string): Promise<number> {
+    const payload = this.jwtService.verify(token);
+    return payload.id;
   }
 
   async login(host: any) {

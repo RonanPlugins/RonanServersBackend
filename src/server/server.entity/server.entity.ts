@@ -39,6 +39,9 @@ export class ServerEntity {
   @Column({ nullable: true })
   hostId: number;
 
+  @Column({ nullable: true })
+  categoryId: number;
+
   @ManyToOne(() => HostEntity, (host) => host.servers, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'hostId' })
   host: HostEntity;

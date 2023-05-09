@@ -11,6 +11,10 @@ import { CommentModule } from './comment/comment.module';
 import { VoteController } from './vote/vote.controller';
 import * as dotenv from 'dotenv';
 import config from '../ormconfig';
+import { HostService } from './host/host.service';
+import { ServerService } from './server/server.service';
+import { ServerController } from './server/server.controller';
+import { HostController } from './host/host.controller';
 
 dotenv.config();
 
@@ -23,7 +27,12 @@ dotenv.config();
     CategoryModule,
     CommentModule,
   ],
-  controllers: [AppController, VoteController],
-  providers: [AppService, RatingService],
+  controllers: [
+    AppController,
+    VoteController,
+    ServerController,
+    HostController,
+  ],
+  providers: [AppService, RatingService, HostService, ServerService],
 })
 export class AppModule {}
