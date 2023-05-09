@@ -6,9 +6,16 @@
 </p>
 
 ---
+### Documentation
+Api documentation is available at [ronanservers.com](https://api.ronanservers.com/api)
+
+[![Discord Online](https://img.shields.io/discord/182633513474850818.svg)](https://discord.gg/ronannetwork-plugin-help-182633513474850818)
+[![Build Status](https://img.shields.io/github/workflow/status/RonanPlugins/RonanServersBackend/CI)](https://github.com/RonanPlugins/RonanServersBackend/actions/workflows/greetings.yml)
+
 ## Setup
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.  
-The below command will configure your environment to be ready to develop! 
+The below command will configure your environment to be ready to develop!
+
 ```bash
 $ bash setup.sh
 ```
