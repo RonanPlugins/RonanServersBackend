@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Request,
   UnauthorizedException,
   UseGuards,
@@ -80,8 +81,11 @@ export class ServerController {
       },
     },
   })
-  async findAll(): Promise<ServerEntity[]> {
-    return await this.serverService.findAll();
+  async findAll(
+    @Query('page') page = 0,
+    @Query('take') take = 10,
+  ): Promise<ServerEntity[]> {
+    return await this.serverService.findAll({ take: take, skip: take * page });
   }
   @ApiDefaultResponse({
     schema: {

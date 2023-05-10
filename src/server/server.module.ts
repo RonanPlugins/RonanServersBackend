@@ -6,6 +6,7 @@ import { ServerEntity } from './server.entity/server.entity';
 import { AuthService } from '../auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [
@@ -16,8 +17,9 @@ import { UserModule } from '../user/user.module';
       signOptions: { expiresIn: '1d' },
     }),
     UserModule,
+    ServerModule,
   ],
-  providers: [ServerService, AuthService],
+  providers: [ServerService, AuthService, UserService],
   controllers: [ServerController],
   exports: [TypeOrmModule, ServerService],
 })

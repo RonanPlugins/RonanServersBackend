@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { ServerEntity } from './server.entity/server.entity';
 import * as util from 'minecraft-server-util';
 import { JavaStatusResponse } from 'minecraft-server-util';
@@ -57,9 +57,10 @@ export class ServerService {
     return await this.serverRepository.findOne({ where: { id } });
   }
 
-  async findAll(): Promise<ServerEntity[]> {
-    return await this.serverRepository.find();
+  async findAll(options: FindManyOptions = undefined): Promise<ServerEntity[]> {
+    return await this.serverRepository.find(options);
   }
+
   async getOnlinePlayers(serverId: number): Promise<number> {
     const server = await this.findOneById(serverId);
     try {
