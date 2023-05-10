@@ -42,7 +42,7 @@ dotenv.config();
     RatingService,
     ServerService,
     UserService,
-    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }
+    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })
 export class AppModule {}

@@ -8,12 +8,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from '../user/user.module';
 import { UserService } from '../user/user.service';
 
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([ServerEntity]),
     JwtModule.register({
-      // TODO replace YOUR_SECRET_KEY
-      secret: 'YOUR_SECRET_KEY',
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
     UserModule,

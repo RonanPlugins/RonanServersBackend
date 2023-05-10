@@ -10,7 +10,7 @@ export class VoteEntity {
   @Column()
   voteValue: number;
 
-  @ManyToOne(() => UserEntity, (host) => host.votes)
+  @ManyToOne(() => UserEntity, (user) => user.votes)
   user: UserEntity;
 
   @ManyToOne(() => ServerEntity, (server) => server.votes, {

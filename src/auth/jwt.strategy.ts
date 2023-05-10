@@ -4,19 +4,22 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 import { JwtPayloadInterface } from './jwt-payload.interface';
 import { UserService } from '../user/user.service';
+import * as dotenv from 'dotenv';
+import * as process from 'process';
+
+dotenv.config();
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private userService: UserService) {
     super({
-      // TODO replace YOUR_SECRET_KEY
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req: Request) => {
           return req?.cookies?.token;
         },
         ExtractJwt.fromAuthHeaderAsBearerToken(),
       ]),
-      secretOrKey: 'YOUR_SECRET_KEY',
+      secretOrKey: process.env.JWT_SECRET,
     });
   }
 
