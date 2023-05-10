@@ -83,7 +83,7 @@ export class ServerController {
   })
   async findAll(
     @Query('page') page = 0,
-    @Query('take') take = 10,
+    @Query('take') take = 20,
   ): Promise<ServerEntity[]> {
     return await this.serverService.findAll({ take: take, skip: take * page });
   }
