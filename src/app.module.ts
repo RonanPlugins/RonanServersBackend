@@ -16,6 +16,8 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './logging.interceptor';
 
 dotenv.config();
 
@@ -40,6 +42,7 @@ dotenv.config();
     RatingService,
     ServerService,
     UserService,
+    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }
   ],
 })
 export class AppModule {}
