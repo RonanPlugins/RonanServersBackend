@@ -13,7 +13,6 @@ import {
 import { ServerService } from './server.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthService } from '../auth/auth.service';
-import { HostService } from '../host/host.service';
 import { ServerEntity } from './server.entity/server.entity';
 import {
   ApiBody,
@@ -21,13 +20,14 @@ import {
   ApiDefaultResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { UserService } from '../user/user.service';
 
 @Controller('server')
 @ApiTags('server')
 export class ServerController {
   constructor(
     private serverService: ServerService,
-    private hostService: HostService,
+    private userService: UserService,
     private authService: AuthService,
   ) {}
   @UseGuards(JwtAuthGuard)
@@ -38,7 +38,7 @@ export class ServerController {
     schema: {
       type: 'object',
       properties: {
-        host: { $ref: '#/components/schemas/ServerEntity' },
+        user: { $ref: '#/components/schemas/ServerEntity' },
       },
     },
   })
@@ -53,7 +53,7 @@ export class ServerController {
     @Body('rules') rules: string[],
     @Body('categoryId') categoryId: number,
   ) {
-    const hostId = this.authService.getHostIdFromToken(req?.cookies?.token);
+    const userId = this.authService.getUserIdFromToken(req?.cookies?.token);
     const server = await this.serverService.createServer(
       name,
       description,
@@ -62,7 +62,7 @@ export class ServerController {
       version,
       gameMode,
       rules,
-      await hostId,
+      await userId,
       categoryId,
     );
     return { message: 'Server created successfully', server };
@@ -94,9 +94,9 @@ export class ServerController {
       },
     },
   })
-  @Get('host/:hostId')
-  async findAllByHostId(@Param('hostId') hostId: number) {
-    return await this.serverService.findAllByHostId(hostId);
+  @Get('user/:userId')
+  async findAllByUserId(@Param('userId') userId: number) {
+    return await this.serverService.findAllByUserId(userId);
   }
   @ApiDefaultResponse({
     schema: {
@@ -119,7 +119,7 @@ export class ServerController {
     schema: {
       type: 'object',
       properties: {
-        host: { $ref: '#/components/schemas/ServerEntity' },
+        user: { $ref: '#/components/schemas/ServerEntity' },
       },
     },
   })
@@ -134,7 +134,7 @@ export class ServerController {
     schema: {
       type: 'object',
       properties: {
-        host: { $ref: '#/components/schemas/ServerEntity' },
+        user: { $ref: '#/components/schemas/ServerEntity' },
       },
     },
   })
@@ -143,11 +143,11 @@ export class ServerController {
     @Param('id') id: number,
     @Body() updateServerDto: Partial<ServerEntity>,
   ) {
-    const hostId = await this.authService.getHostIdFromToken(
+    const userId = await this.authService.getUserIdFromToken(
       req.headers.authorization,
     );
     const server = await this.serverService.findOneById(id);
-    if (server.hostId !== hostId) {
+    if (server.userId !== userId) {
       throw new UnauthorizedException('Not authorized to update this server');
     }
     return await this.serverService.updateServer(id, updateServerDto);
@@ -156,11 +156,11 @@ export class ServerController {
   @ApiCookieAuth('JWT Token')
   @Delete(':id')
   async deleteServer(@Request() req, @Param('id') id: number) {
-    const hostId = await this.authService.getHostIdFromToken(
+    const userId = await this.authService.getUserIdFromToken(
       req.headers.authorization,
     );
     const server = await this.serverService.findOneById(id);
-    if (server.hostId !== hostId) {
+    if (server.userId !== userId) {
       throw new UnauthorizedException('Not authorized to delete this server');
     }
     await this.serverService.deleteServer(id);

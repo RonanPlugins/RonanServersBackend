@@ -6,7 +6,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { HostEntity } from '../../host/host.entity/host.entity';
+import { UserEntity } from '../../user/user.entity/user.entity';
 import { CategoryEntity } from '../../category/category.entity/category.entity';
 import { CommentEntity } from '../../comment/comment.entity/comment.entity';
 import { VoteEntity } from '../../vote/vote.entity/vote.entity';
@@ -51,8 +51,8 @@ export class ServerEntity {
   rules: string[];
 
   @Column({ nullable: true })
-  @ApiProperty({ description: 'The ID of the host who owns the server.' })
-  hostId: number;
+  @ApiProperty({ description: 'The ID of the user who owns the server.' })
+  userId: number;
 
   @Column({ nullable: true })
   @ApiProperty({
@@ -60,14 +60,14 @@ export class ServerEntity {
   })
   categoryId: number;
 
-  @ManyToOne(() => HostEntity, (host) => host.servers, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'hostId' })
+  @ManyToOne(() => UserEntity, (user) => user.servers, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
   @ApiProperty({
-    description: 'The host that owns the server.',
+    description: 'The user that owns the server.',
     required: true,
-    type: () => HostEntity, // use a lazy resolver here
+    type: () => UserEntity, // use a lazy resolver here
   })
-  host: HostEntity;
+  user: UserEntity;
 
   @ManyToOne(() => CategoryEntity, (category) => category.servers)
   @JoinColumn({ name: 'categoryId' })

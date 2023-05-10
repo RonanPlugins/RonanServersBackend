@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ServerEntity } from '../../server/server.entity/server.entity';
-import { HostEntity } from '../../host/host.entity/host.entity';
+import { UserEntity } from '../../user/user.entity/user.entity';
 
 @Entity()
 export class RatingEntity {
@@ -13,8 +13,8 @@ export class RatingEntity {
   @Column({ nullable: true })
   reviewText: string;
 
-  @ManyToOne(() => HostEntity, (host) => host.ratings)
-  host: HostEntity;
+  @ManyToOne(() => UserEntity, (user) => user.ratings)
+  user: UserEntity;
 
   @ManyToOne(() => ServerEntity, (server) => server.ratings, {
     onDelete: 'CASCADE',

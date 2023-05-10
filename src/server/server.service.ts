@@ -29,7 +29,7 @@ export class ServerService {
     version: string,
     gameMode: string,
     rules: string[],
-    hostId: number,
+    userId: number,
     categoryId: number,
   ): Promise<ServerEntity> {
     const server = new ServerEntity();
@@ -40,13 +40,13 @@ export class ServerService {
     server.version = version;
     server.gameMode = gameMode;
     server.rules = rules;
-    server.hostId = hostId;
+    server.userId = userId;
     server.categoryId = categoryId;
     return await this.serverRepository.save(server);
   }
 
-  async findAllByHostId(hostId: number): Promise<ServerEntity[]> {
-    return await this.serverRepository.find({ where: { hostId } });
+  async findAllByUserId(userId: number): Promise<ServerEntity[]> {
+    return await this.serverRepository.find({ where: { userId } });
   }
 
   async findAllByCategoryId(categoryId: number): Promise<ServerEntity[]> {

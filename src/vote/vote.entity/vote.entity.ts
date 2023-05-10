@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { HostEntity } from '../../host/host.entity/host.entity';
 import { ServerEntity } from '../../server/server.entity/server.entity';
+import { UserEntity } from '../../user/user.entity/user.entity';
 
 @Entity()
 export class VoteEntity {
@@ -10,8 +10,8 @@ export class VoteEntity {
   @Column()
   voteValue: number;
 
-  @ManyToOne(() => HostEntity, (host) => host.votes)
-  host: HostEntity;
+  @ManyToOne(() => UserEntity, (host) => host.votes)
+  user: UserEntity;
 
   @ManyToOne(() => ServerEntity, (server) => server.votes, {
     onDelete: 'CASCADE',

@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { HostEntity } from '../../host/host.entity/host.entity';
 import { ServerEntity } from '../../server/server.entity/server.entity';
+import { UserEntity } from '../../user/user.entity/user.entity';
 
 @Entity()
 export class CommentEntity {
@@ -10,8 +10,8 @@ export class CommentEntity {
   @Column()
   commentText: string;
 
-  @ManyToOne(() => HostEntity, (host) => host.comments)
-  host: HostEntity;
+  @ManyToOne(() => UserEntity, (user ) => user.comments)
+  user: UserEntity;
 
   @ManyToOne(() => ServerEntity, (server) => server.comments, {
     onDelete: 'CASCADE',

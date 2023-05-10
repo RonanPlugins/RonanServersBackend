@@ -8,35 +8,35 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { HostService } from './host.service';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { HostEntity } from './host.entity/host.entity';
 import {
   ApiBody,
   ApiCookieAuth,
   ApiDefaultResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { UserService } from './user.service';
+import { UserEntity } from './user.entity/user.entity';
 
-@Controller('host')
-@ApiTags('host')
-export class HostController {
-  constructor(private hostService: HostService) {}
+@Controller('user')
+@ApiTags('user')
+export class UserController {
+  constructor(private userService: UserService) {}
   @Post('register')
   @UsePipes(new ValidationPipe())
-  @ApiBody({ type: HostEntity })
+  @ApiBody({ type: UserEntity })
   @ApiDefaultResponse({
     description: 'Host created successfully',
     schema: {
       type: 'object',
       properties: {
-        message: { type: 'string', example: 'Host created successfully' },
-        host: { $ref: '#/components/schemas/HostEntity' },
+        message: { type: 'string', example: 'User created successfully' },
+        host: { $ref: '#/components/schemas/UserEntity' },
       },
     },
   })
-  async register(@Body() body: HostEntity): Promise<any> {
-    const host = await this.hostService.createHost(
+  async register(@Body() body: UserEntity): Promise<any> {
+    const host = await this.userService.createUser(
       body.username,
       body.email,
       body.password,
@@ -47,19 +47,19 @@ export class HostController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   @ApiCookieAuth('JWT Token')
-  @ApiBody({ type: HostEntity })
+  @ApiBody({ type: UserEntity })
   @ApiDefaultResponse({
     description: 'Host created successfully',
     schema: {
       type: 'object',
       properties: {
         message: { type: 'string', example: 'Host created successfully' },
-        HostEntity: { $ref: '#/components/schemas/HostEntity' },
+        HostEntity: { $ref: '#/components/schemas/UserEntity' },
       },
     },
   })
   async getProfile(@Req() req): Promise<any> {
-    const hostEntity = await this.hostService.findOneById(req.user.id);
+    const hostEntity = await this.userService.findOneById(req.user.id);
     return { hostEntity };
   }
 }
