@@ -1,6 +1,8 @@
 import {
   Body,
-  Controller, Get, Param,
+  Controller,
+  Get,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -12,7 +14,7 @@ import { CommentEntity } from './comment.entity/comment.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('comment')
-@ApiTags('user')
+@ApiTags('comment')
 export class CommentController {
   constructor(private commentService: CommentService) {}
 

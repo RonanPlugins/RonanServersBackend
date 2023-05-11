@@ -30,8 +30,8 @@ dotenv.config();
     AuthModule,
     ServerModule,
     CategoryModule,
-    CommentModule,
     UserModule,
+    CommentModule,
   ],
   controllers: [
     AppController,
