@@ -52,4 +52,8 @@ export class CommentService {
   ): Promise<CommentEntity[]> {
     return await this.commentEntityRepository.find(options);
   }
+
+  async deleteComment(id: number): Promise<void> {
+    await this.commentEntityRepository.delete(id);
+  }
 }

@@ -7,14 +7,25 @@ import { UserModule } from '../user/user.module';
 import { ServerModule } from '../server/server.module';
 import { UserService } from '../user/user.service';
 import { ServerService } from '../server/server.service';
+import { AuthModule } from '../auth/auth.module';
+import { AuthService } from '../auth/auth.service';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([CommentEntity]),
     UserModule,
     ServerModule,
+    AuthModule,
+    JwtModule,
   ],
-  providers: [CommentService, UserService, ServerService],
+  providers: [
+    CommentService,
+    UserService,
+    ServerService,
+    AuthService,
+    JwtService,
+  ],
   exports: [TypeOrmModule, CommentService],
   controllers: [CommentController],
 })
