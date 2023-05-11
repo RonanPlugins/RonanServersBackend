@@ -18,6 +18,8 @@ import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
+import { CommentController } from './comment/comment.controller';
+import { CommentService } from './comment/comment.service';
 
 dotenv.config();
 
@@ -36,12 +38,14 @@ dotenv.config();
     VoteController,
     ServerController,
     UserController,
+    CommentController,
   ],
   providers: [
     AppService,
     RatingService,
     ServerService,
     UserService,
+    CommentService,
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })
