@@ -18,6 +18,10 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
     ServerModule,
     AuthModule,
     JwtModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
   ],
   providers: [
     CommentService,
