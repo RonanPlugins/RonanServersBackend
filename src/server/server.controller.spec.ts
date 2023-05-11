@@ -8,6 +8,8 @@ import { ServerModule } from './server.module';
 import { AuthModule } from '../auth/auth.module';
 import { ServerEntity } from './server.entity/server.entity';
 import { ServerService } from './server.service';
+import config from '../../ormconfig';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 
 describe('ServerController', () => {
   let controller: ServerController;
@@ -15,12 +17,14 @@ describe('ServerController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
+        TypeOrmModule.forRoot(config),
         TypeOrmModule.forFeature([ServerEntity]),
         UserModule,
         ServerModule,
         AuthModule,
+        JwtModule,
       ],
-      providers: [UserService, AuthService, ServerService],
+      providers: [UserService, AuthService, ServerService, JwtService],
       controllers: [ServerController],
     }).compile();
 
