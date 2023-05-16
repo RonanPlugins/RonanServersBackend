@@ -23,6 +23,6 @@ export class AuthController {
     const token = this.jwtService.sign(payload, { expiresIn: '2592000s' });
     const expirationDate = new Date(Date.now() + 2592000 * 1000); // 30 days
     res.cookie('token', token, { httpOnly: false, expires: expirationDate });
-    return req.user;
+    return { user: req.user, token: token };
   }
 }
