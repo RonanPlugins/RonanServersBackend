@@ -3,15 +3,14 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  JoinColumn,
-  OneToMany,
+  JoinColumn, OneToMany,
 } from 'typeorm';
 import { UserEntity } from '../../user/user.entity/user.entity';
 import { CategoryEntity } from '../../category/category.entity/category.entity';
-import { CommentEntity } from '../../comment/comment.entity/comment.entity';
-import { VoteEntity } from '../../vote/vote.entity/vote.entity';
-import { RatingEntity } from '../../rating/rating.entity/rating.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  ServerVerificationEntity
+} from '../../server-verification/server-verification.entity/server-verification.entity';
 
 @Entity()
 export class ServerEntity {
@@ -74,15 +73,14 @@ export class ServerEntity {
   @ApiProperty({ description: 'The category that the server belongs to.' })
   category: CategoryEntity;
 
-  @OneToMany(() => CommentEntity, (comment) => comment.server)
-  @ApiProperty({ description: 'The comments made on the server.' })
-  comments: CommentEntity[];
-
-  @OneToMany(() => VoteEntity, (vote) => vote.server)
-  @ApiProperty({ description: 'The votes made on the server.' })
-  votes: VoteEntity[];
-
-  @OneToMany(() => RatingEntity, (rating) => rating.server)
-  @ApiProperty({ description: 'The ratings made on the server.' })
-  ratings: RatingEntity[];
+  @OneToMany(
+    () => ServerVerificationEntity,
+    (verification) => verification.server,
+  )
+  @ApiProperty({
+    description: 'The verifications for this server.',
+    required: false,
+    type: () => ServerVerificationEntity,
+  })
+  verifications: ServerVerificationEntity[];
 }

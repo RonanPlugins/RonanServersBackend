@@ -15,10 +15,7 @@ dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forFeature([ServerEntity]),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1d' },
-    }),
+    JwtModule,
     UserModule,
     ServerModule,
   ],

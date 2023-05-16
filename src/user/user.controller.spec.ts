@@ -9,7 +9,6 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { UserService } from './user.service';
 import { AuthService } from '../auth/auth.service';
 import { ServerService } from '../server/server.service';
-import { UserEntity } from './user.entity/user.entity';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -18,15 +17,10 @@ describe('UserController', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot(config),
-        TypeOrmModule.forFeature([UserEntity]),
         UserModule,
         ServerModule,
         AuthModule,
         JwtModule,
-        JwtModule.register({
-          secret: process.env.JWT_SECRET,
-          signOptions: { expiresIn: '1d' },
-        }),
       ],
       providers: [UserService, AuthService, ServerService, JwtService],
       controllers: [UserController],

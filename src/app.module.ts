@@ -5,9 +5,6 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServerModule } from './server/server.module';
 import { CategoryModule } from './category/category.module';
-import { RatingService } from './rating/rating.service';
-import { CommentModule } from './comment/comment.module';
-import { VoteController } from './vote/vote.controller';
 import * as dotenv from 'dotenv';
 import config from '../ormconfig';
 import { ServerService } from './server/server.service';
@@ -18,9 +15,12 @@ import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
-import { CommentController } from './comment/comment.controller';
-import { CommentService } from './comment/comment.service';
-
+import { DevtoolsModule } from '@nestjs/devtools-integration';
+import { ServerVerificationController } from './server-verification/server-verification.controller';
+import { ServerVerificationModule } from './server-verification/server-verification.module';
+import { ServerVerificationService } from './server-verification/server-verification.service';
+import { CategoryService } from './category/category.service';
+import { CategoryController } from './category/category.controller';
 dotenv.config();
 
 @Module({
@@ -31,21 +31,24 @@ dotenv.config();
     ServerModule,
     CategoryModule,
     UserModule,
-    CommentModule,
+    ServerVerificationModule,
+    DevtoolsModule.register({
+      http: process.env.NODE_ENV !== 'production',
+    }),
   ],
   controllers: [
     AppController,
-    VoteController,
     ServerController,
     UserController,
-    CommentController,
+    ServerVerificationController,
+    CategoryController,
   ],
   providers: [
     AppService,
-    RatingService,
     ServerService,
     UserService,
-    CommentService,
+    ServerVerificationService,
+    CategoryService,
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })

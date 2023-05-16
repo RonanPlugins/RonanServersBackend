@@ -17,9 +17,6 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ServerEntity } from '../../server/server.entity/server.entity';
-import { CommentEntity } from '../../comment/comment.entity/comment.entity';
-import { VoteEntity } from '../../vote/vote.entity/vote.entity';
-import { RatingEntity } from '../../rating/rating.entity/rating.entity';
 
 @Entity()
 @Unique(['username', 'email'])
@@ -68,28 +65,4 @@ export class UserEntity {
     type: () => ServerEntity, // use a lazy resolver here
   })
   servers: ServerEntity[];
-
-  @OneToMany(() => CommentEntity, (comment) => comment.user)
-  @IsOptional()
-  @IsArray()
-  @ApiProperty({
-    description: 'The comments made by the user.',
-    required: false,
-  })
-  comments: CommentEntity[];
-
-  @OneToMany(() => VoteEntity, (vote) => vote.server)
-  @IsOptional()
-  @IsArray()
-  @ApiProperty({ description: 'The votes made by the user.', required: false })
-  votes: VoteEntity[];
-
-  @OneToMany(() => RatingEntity, (rating) => rating.server)
-  @IsOptional()
-  @IsArray()
-  @ApiProperty({
-    description: 'The ratings made by the user.',
-    required: false,
-  })
-  ratings: RatingEntity[];
 }

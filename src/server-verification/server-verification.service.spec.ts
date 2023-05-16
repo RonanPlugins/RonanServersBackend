@@ -1,29 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.service';
+import { ServerVerificationService } from './server-verification.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from '../../ormconfig';
-import { AuthModule } from './auth.module';
-import { UserModule } from '../user/user.module';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ServerVerificationModule } from './server-verification.module';
 import { ServerModule } from '../server/server.module';
-import { ServerService } from '../server/server.service';
 
-describe('AuthService', () => {
-  let service: AuthService;
+describe('ServerVerificationService', () => {
+  let service: ServerVerificationService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot(config),
-        AuthModule,
-        JwtModule,
-        UserModule,
+        ServerVerificationModule,
         ServerModule,
       ],
-      providers: [AuthService, JwtService, ServerService],
+      providers: [ServerVerificationService],
     }).compile();
 
-    service = module.get<AuthService>(AuthService);
+    service = module.get<ServerVerificationService>(ServerVerificationService);
   });
 
   it('should be defined', () => {

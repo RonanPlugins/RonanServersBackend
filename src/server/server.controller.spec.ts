@@ -18,17 +18,10 @@ describe('ServerController', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         TypeOrmModule.forRoot(config),
-        TypeOrmModule.forFeature([ServerEntity]),
+        AuthModule,
         UserModule,
         ServerModule,
-        AuthModule,
-        JwtModule,JwtModule.register({
-          secret: process.env.JWT_SECRET,
-          signOptions: { expiresIn: '1d' },
-        }),
-
       ],
-      providers: [UserService, AuthService, ServerService, JwtService],
       controllers: [ServerController],
     }).compile();
 

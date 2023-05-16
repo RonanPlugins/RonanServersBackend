@@ -5,8 +5,6 @@ import { Request } from 'express';
 import { JwtPayloadInterface } from './jwt-payload.interface';
 import { UserService } from '../user/user.service';
 import * as dotenv from 'dotenv';
-import * as process from 'process';
-
 dotenv.config();
 
 @Injectable()

@@ -24,8 +24,7 @@ describe('ServerService', () => {
         AuthModule,
         JwtModule,
       ],
-      providers: [UserService, AuthService, ServerService, JwtService],
-      controllers: [ServerController],
+      providers: [UserService, AuthService, ServerService],
     }).compile();
 
     service = module.get<ServerService>(ServerService);

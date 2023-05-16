@@ -1,6 +1,6 @@
 {
   "name": "ronan-servers-nest-api",
-  "version": "0.0.5-5",
+  "version": "0.1.0",
   "description": "",
   "author": "",
   "private": true,
@@ -22,6 +22,7 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/devtools-integration": "^0.1.4",
     "@nestjs/jwt": "^10.0.3",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
